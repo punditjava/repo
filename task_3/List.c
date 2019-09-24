@@ -7,12 +7,14 @@ typedef struct _Node {
     struct _Node *next;
     struct _Node *prev; 
 } Node;
+
 /* Структура Списка */
 typedef struct _linked_list {
     size_t size;
     Node *head;
     Node *tail;
 } linked_list;
+
 /* Создаём экземпляр структуры linked_list */
 linked_list* createlinked_list() {
     linked_list *tmp = (linked_list*) malloc(sizeof(linked_list));
@@ -20,6 +22,7 @@ linked_list* createlinked_list() {
     tmp->head = tmp->tail = NULL;
     return tmp;
 }
+
 /* Добавить элемент в конец списка */
 int pushBack(linked_list *list, double value) {
     Node *tmp = (Node*) malloc(sizeof(Node));
@@ -42,17 +45,19 @@ int pushBack(linked_list *list, double value) {
     list->size++;
     return 1;
 }
+
 /* Выводим наш Списочек*/
 void printlinked_list(linked_list *list, void (*fun)(double)) {
     Node *tmp = list->head;
-    while (tmp) {
+    while (tmp != NULL) {
         fun(tmp->value);
         tmp = tmp->next;
     }
     printf("\n");
 }
+
 /* Вспомогательная функция для вывода*/
-void printInt(double value) {
+void printDouble(double value) {
     printf("%f ", ((double) value));
 }
 /* Удаляем элемент*/
@@ -89,7 +94,7 @@ int deleteElement(linked_list *list, Node *tmp)
 void scanElements(linked_list *list)
 {
     Node *node = list->head;
-    while(node)
+    while(node != NULL)
     {
         Node *tmp = node;
         node = node->next;
@@ -106,7 +111,7 @@ void DeleteList(linked_list **list)
 {
     Node *tmp = (*list)->head;
     Node *next = NULL;
-    while(tmp)
+    while(tmp != NULL)
     {
         next = tmp->next;
         free(tmp);
@@ -127,10 +132,10 @@ void main() {
         pushBack(list, scanner); 
     }
     
-    printlinked_list(list,printInt);
+    printlinked_list(list,printDouble);
     scanElements(list);
     puts("Убрал отрицательные элементы: ");
-    printlinked_list(list,printInt);
+    printlinked_list(list,printDouble);
 
     DeleteList(&list);
 }
