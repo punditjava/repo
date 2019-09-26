@@ -1,5 +1,31 @@
 #include<stdio.h>
+#include <stdlib.h>
 #define SIZE 3
+
+int check_file(FILE *file)
+{	
+	fseek(file,0,SEEK_SET);
+	char *matrix = "MATRIX";
+	char *str, *a_str = NULL;
+	a_str = (char *) malloc(6*sizeof(char));
+
+	if(a_str != NULL)
+	{
+		str = a_str;
+	}
+	else return 0;
+
+	fread(str, sizeof(char), 6, file);
+
+	if(*str == *matrix && fread(a_str, sizeof(char), 4, file) == 4)
+		puts("\nФаил успешно проверен!\n");
+	else {
+		puts("\nФаил плохой!\n");
+		exit(1);
+	};
+	return 1;
+}
+
 
 /*Создаю в фаиле бинарную матрицу с размером SIZE*/
 void create_matrix(FILE *newfile)
@@ -20,6 +46,8 @@ void create_matrix(FILE *newfile)
 
 double sum_main_diagonal(FILE *file)
 {	
+	check_file(file);
+
 	double result = 0.0;
 	int label = 10;/*Здесь 10 это размер слова MATRIX и его SIZE */
 	int i = 0;
@@ -39,6 +67,8 @@ double sum_main_diagonal(FILE *file)
 
 void reset_columns(FILE *file)
 {
+	check_file(file);
+
 	int label = 10;
 	int i,j = 0;
 	double O = 0.0;
@@ -73,7 +103,7 @@ int main()
 	matrix_file = fopen("matrix2.bin","w+b");
 
 	create_matrix(matrix_file);
-
+	
 	double sum;
 	sum = sum_main_diagonal(matrix_file);
 	puts("\nСумма на главной диагонали :");
