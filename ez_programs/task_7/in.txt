@@ -1,15 +1,27 @@
-﻿﻿// endl_string_variable.cpp
+﻿﻿﻿﻿// file_scope_using_namespace.cpp
 #include <iostream>
 #include <cstdlib>
-// Строки C++.
-#include <string>
+// "Математические функции".
+#include <cmath>
+using namespace std;
+
+// Определение своей функции.
+double log(double base, double arg)
+{
+  // Через стандартный натуральный логарифм.
+  return log(arg) / log(base);
+}
+
 
 int main()
 {
-  std::string user_name = "user"; // Определить переменную.
-  std::cout << "Hello, " << user_name << "!" << std::endl;
+  double a = 0, b = 0; // Числа с плавающей запятой.
+  cout << "a = ";
+  cin >> a;
+  cout << "b = ";
+  cin >> b;
 
-  user_name = "The Great Whale"; // Изменить значение переменной.
-  std::cout << "I am " << user_name;
-  return EXIT_SUCCESS; // Возвратим ОС "код успеха".
+  cout.precision(16); // 16 значащих знаков.
+  cout << "//log(b, a)  = " << log(b, a) << endl;//.,mn,mn.,.nm
+  return EXIT_SUCCESS;
 }

@@ -9,24 +9,24 @@ int open_file(char **name, FILE **f, char mod[])
         return 1;
 }
 
-void buffer_size(char **line, int size, int cons) /*  */
+int buffer_size(char **line, int size, int cons) /*  */
 {
     *line=realloc(*line, (size+cons)*sizeof(char));
+    if(*line == NULL)
+    {
+    	puts("Нехватка памяти в buffer_size");
+    	return 0;
+    }
+    return 1;
 }
 
-void new_buffer_size(char **line, int cons) 
+int new_buffer_size(char **line, int cons) 
 {
     *line=(char*) malloc(cons*sizeof(char));
-}
-void free_text(char **text)
-{	
-	size_t i = 0;
-
-	while(text[i] != NULL)
-	{
-
-		free(text[i]);
-		i++;
-	}
-	free(text);
+    if(*line == NULL)
+    {
+    	puts("Нехватка памяти в new_buffer_size");
+    	return 0;
+    }
+    return 1;
 }

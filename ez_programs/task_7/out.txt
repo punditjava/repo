@@ -1,0 +1,27 @@
+
+
+
+
+
+
+  
+  cin >> a;
+  cin >> b;
+  cout << "//log(b, a)  = " << log(b, a) << endl;
+  cout << "a = ";
+  cout << "b = ";
+  cout.precision(16); 
+  double a = 0, b = 0; 
+  return EXIT_SUCCESS;
+  return log(arg) / log(base);
+#include <cmath>
+#include <cstdlib>
+#include <iostream>
+double log(double base, double arg)
+int main()
+using namespace std;
+{
+{
+}
+}
+﻿﻿﻿﻿

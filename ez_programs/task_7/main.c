@@ -3,7 +3,6 @@
 #include <string.h>
 
 #include "support.h"
-#include "sort.h"
 #include "delete.h"
 
 #define INNAME "in.txt"
@@ -11,9 +10,7 @@
 
 int main() {
 
-	delete(INNAME) == 0;
-
-	sort(INNAME, OUTNAME);
+	delete(INNAME, OUTNAME);
 		
 	return 0;
 }
