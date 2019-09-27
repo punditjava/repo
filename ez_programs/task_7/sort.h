@@ -1,4 +1,3 @@
-
 void sort(char *inname, char *outname)
 {
     FILE *f;
@@ -18,7 +17,7 @@ void sort(char *inname, char *outname)
                 i++;    
                 line[i-1] = '\0';    
                                         
-                pam=pam+i;
+                pam=pam + i + 3;
                 
                 arr_line=(char**) realloc(arr_line, pam);
                 j++;
@@ -40,7 +39,7 @@ void sort(char *inname, char *outname)
                 line[i-1] = c;       
             }
         }
-        
+        free(line);
         
         for (i=0; i<j-1; i++) 
         {
@@ -68,11 +67,10 @@ void sort(char *inname, char *outname)
         {
             puts(arr_line[i]);
         }
-        
         fclose(f);
         
-        char *input = outname;
-        if (open_file(&input, &f, "w")==1) 
+        
+        if (open_file(&outname, &f, "w")==1) 
         {
             for (i=0; i<j; i++) {
                 fprintf(f, "%s\n", arr_line[i]);
@@ -81,6 +79,11 @@ void sort(char *inname, char *outname)
         } 
         else puts("Не удалось записать файл\n");
         
+        for (i = 0; i < j - 2; ++i)
+        {
+            free(arr_line[i]);
+        }
+        free(arr_line[j - 1]);
         free(arr_line);
         free(line);
     } 

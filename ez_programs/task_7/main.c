@@ -4,16 +4,14 @@
 
 #include "support.h"
 #include "sort.h"
-#include "work.h"
+#include "delete.h"
 
 #define INNAME "in.txt"
 #define OUTNAME "out.txt"
 
 int main() {
-	if(delete(INNAME) == 0)
-	{
-		return 0;
-	}
+
+	delete(INNAME) == 0;
 
 	sort(INNAME, OUTNAME);
 		

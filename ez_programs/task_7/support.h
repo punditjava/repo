@@ -18,3 +18,15 @@ void new_buffer_size(char **line, int cons)
 {
     *line=(char*) malloc(cons*sizeof(char));
 }
+void free_text(char **text)
+{	
+	size_t i = 0;
+
+	while(text[i] != NULL)
+	{
+
+		free(text[i]);
+		i++;
+	}
+	free(text);
+}

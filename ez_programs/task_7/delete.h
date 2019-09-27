@@ -12,7 +12,7 @@ size_t check_comment(char *line)
             return line - p;
         }
     }
-    return 0;
+    return -1;
 }
 
 int delete_komments(FILE *file, char **inname)
@@ -34,12 +34,12 @@ int delete_komments(FILE *file, char **inname)
             puts(line);
 
             int size = check_comment(line);
-            if(size != 0)
+            if(size != -1)
             {
                 line[size] ='\0';
                 flag++;
             }     
-            pam=pam+i;
+            pam=pam + i + 3;
                
             arr_line=(char**) realloc(arr_line, pam);
             j++;
@@ -73,8 +73,15 @@ int delete_komments(FILE *file, char **inname)
     	{
         	fprintf(file, "%s\n", arr_line[i]);
     	}
+        fclose(file);
     	puts("\nКомментарии удалены успешно!");
-    }	
+    }
+    for (i = 0; i < j; ++i)
+    {
+        free(arr_line[i]);
+    }
+    free(arr_line);
+    free(line);	
     return 0;
 }
 
@@ -82,12 +89,12 @@ int delete(char *inname)
 {
     
     FILE *f;
-    char mod[2]="r+", *name = inname;
+    char mod[2]="r+";
 
-    if (open_file(&name, &f, mod)==1) 
+    if (open_file(&inname, &f, mod)==1) 
     {
-        delete_komments(f, &name);
-        fclose(f);
+        delete_komments(f, &inname);
+       
         return 1;
     }   
     return 0;
