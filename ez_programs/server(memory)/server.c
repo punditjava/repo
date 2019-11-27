@@ -13,7 +13,7 @@ typedef struct mystruct{
 	int a;
 	int b;
 	int sum;
-	char* B;
+	int B;
 }data;
 
 int main(){
@@ -25,8 +25,11 @@ int main(){
 	data* shm;
 	char* m;
 
-	key = 555;
-
+	key = ftok("/bin/ls", '1');
+	if (key == -1) {
+		perror("key fail!");
+		exit(-2);
+	}
         
     schmid = shmget(key,SMSIZE,IPC_CREAT | 0666);
 
@@ -43,13 +46,17 @@ int main(){
 	}
 	
 	
-	
-		shm->sum = shm->a + shm->b;
-        printf("in process %d + %d = %ld",
-               shm->a, shm->b, shm->sum );
-        
+		while(1) {
 
-	
+			if (shm -> B == 1) {
+
+				shm->sum = shm->a + shm->b;
+        		printf("in process %d + %d = %d \n",
+               		shm->a, shm->b, shm->sum );
+        		fflush(stdout);
+        		shm->B = -1;
+    		}
+    	}    
 
         return 0;
 }
